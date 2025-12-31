@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>BRAND</title>
+    <link rel="stylesheet" href="brand.css">
+</head>
+<body>
+
+<div class="brand-section">
+
+    <!-- ACCESSORIES -->
+       <div class="category">
+        <h1>ACCESSORIES</h1>
+        <a class="item" href="https://www.instagram.com/shanhaiji2020/" target="_blank">山骸紀</a>
+        <a class="item" href="https://www.instagram.com/bronzesoulsdesigns/" target="_blank">Bronze Souls</a>
+        <a class="item" href="https://www.instagram.com/nl___art/" target="_blank">NL•NEO</a>
+        <a class="item" href="https://www.instagram.com/thesixthbasement/" target="_blank">Thesixthbasement</a>
+    </div>
+
+    <!-- KOL -->
+    <div class="category">
+        <h1>KOL</h1>
+		
+        <a class="item" href="kol-1.html"> CRAYONAMCHI</a>
+        <a class="item" href="kol-2.html">HSUAN</a>
+        <a class="item" href="kol-3.html">SECALLENYANG</a>
+        <a class="item" href="kol-4.html">XIN</a>
+    </div>
+
+    <!-- APPAREL -->
+    <div class="category">
+        <h1>APPAREL</h1>
+        <a class="item" href="https://www.instagram.com/goopi.co/" target="_blank">GOOPI</a>
+        <a class="item" href="https://www.instagram.com/mukkstore/" target="_blank">MUKK</a>
+        <a class="item" href="https://www.instagram.com/4percentclu8/" target="_blank">4 PERCENT</a>
+        <a class="item" href="https://www.instagram.com/namesak3/" target="_blank">NAMESAKE</a>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll(".category").forEach(category => {
+
+    category.addEventListener("mouseenter", () => {
+        const items = category.querySelectorAll(".item");
+
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add("show");
+            }, index * 120);
+        });
+    });
+
+    category.addEventListener("mouseleave", () => {
+        const items = category.querySelectorAll(".item");
+        items.forEach(item => {
+            item.classList.remove("show");
+        });
+    });
+
+});
+</script>
+	<a href="home.html" class="back-logo">
+    <img src="images/logo-small.png" alt="back logo">
+</a>
+
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>ACTIVATION</title>
+
+    <style>
+        body {
+            margin: 0;
+            background: #000;
+            overflow-x: hidden;
+            font-family: "Montserrat", "Noto Sans TC", sans-serif;
+        }
+
+        /* 輪播容器滿版 */
+        .slider {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 每一張圖片 */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .slide.active {
+            opacity: 1;
+            z-index: 2;
+        }
+
+        /* 圖片滿版裁切 */
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* 左右箭頭 */
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 42px;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 10px 18px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 10;
+            user-select: none;
+            transition: 0.3s;
+        }
+
+        .arrow:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        .left-arrow { left: 20px; }
+        .right-arrow { right: 20px; }
+
+        /* 下方點點 */
+        .dots {
+            position: absolute;
+            bottom: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 5;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: #666;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+
+        /* 右下角 Logo */
+        .corner-logo {
+    position: fixed;
+    bottom: -2px;
+    right: 0px;
+    z-index: 9999;
+        }
+
+        .corner-logo img {
+            width: 90px;
+            cursor: pointer;
+			 
+             
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+        }
+
+        .corner-logo img:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 右下角 logo -->
+    <a href="home.html" class="corner-logo">
+        <img src="images/logo-small.png" alt="logo">
+    </a>
+
+
+    <!-- 滿版輪播 -->
+    <div class="slider">
+
+        <div class="slide active">
+			<a href="https://www.gq.com.tw/stylefest/" target="_blank">
+            <img src="images/slide1.png" alt="">
+				 </a>
+        </div>
+		
+
+        <div class="slide">
+			<a href="https://endless-staygold.oen.tw/events/30VKD8RE4zG4Pkq1yKRJQtYeD8P" target="_blank">
+            <img src="images/slide2.png" alt="">
+				 </a>
+        </div>
+
+        <div class="slide">
+			<a href="https://www.tfam.museum/Exhibition/Exhibition_Special.aspx?id=802" target="_blank">
+            <img src="images/slide3.png" alt="">
+				 </a>
+        </div>
+
+        <!-- 左右控制按鈕 -->
+        <div class="arrow left-arrow">&#10094;</div>
+        <div class="arrow right-arrow">&#10095;</div>
+
+        <!-- 點點 -->
+        <div class="dots"></div>
+    </div>
+
+<script>
+    const slides = document.querySelectorAll(".slide");
+    const prev = document.querySelector(".left-arrow");
+    const next = document.querySelector(".right-arrow");
+    const dotsContainer = document.querySelector(".dots");
+
+    let index = 0;
+
+    /* 建立點點 */
+    slides.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (i === 0) dot.classList.add("active");
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+    });
+
+    const dots = document.querySelectorAll(".dot");
+
+    function showSlide(i) {
+        slides.forEach((slide, idx) => {
+            slide.classList.remove("active");
+            dots[idx].classList.remove("active");
+        });
+
+        slides[i].classList.add("active");
+        dots[i].classList.add("active");
+        index = i;
+    }
+
+
+    prev.addEventListener("click", () => {
+        index = index <= 0 ? slides.length - 1 : index - 1;
+        showSlide(index);
+    });
+
+    next.addEventListener("click", () => {
+        index = index >= slides.length - 1 ? 0 : index + 1;
+        showSlide(index);
+    });
+
+    dots.forEach(dot => {
+        dot.addEventListener("click", () => {
+            showSlide(Number(dot.dataset.index));
+        });
+    });
+
+    /* 自動播放 */
+    setInterval(() => {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+    }, 5000);
+</script>
+
+</body>
+</html>
